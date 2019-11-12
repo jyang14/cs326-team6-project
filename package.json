@@ -15,8 +15,13 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn lint:fix"
+      "pre-commit": "yarn lint"
     }
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,css,html}": [
+      "yarn lint:fix", "git add"
+    ]
   },
   "standard": {
     "ignore": [
