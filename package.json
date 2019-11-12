@@ -1,0 +1,35 @@
+{
+  "name": "cs326-team6-project",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/jyang14/cs326-team6-project",
+  "license": "MIT",
+  "scripts": {
+    "dev": "concurrently \"npm start\" \"cd client && npm start\"",
+    "pretty": "prettier --write **/*.{js,css,html}",
+    "standard:fix": "standard --fix",
+    "lint": "standard",
+    "lint:fix": "npm run-script pretty && npm run-script standard:fix",
+    "build": "cd client && npm run-script build && cd .. && copyfiles -u 2 client/build/**/* srv/dist",
+    "start": "cd srv && npm start"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run-script lint:fix"
+    }
+  },
+  "standard": {
+    "ignore": [
+      "**/node_modules/",
+      "/srv/dist/",
+      "/client/build/"
+    ]
+  },
+  "devDependencies": {
+    "concurrently": "^5.0.0",
+    "copyfiles": "^2.1.1",
+    "husky": "^3.0.9",
+    "prettier": "^1.19.1",
+    "standard": "^14.3.1"
+  }
+}
