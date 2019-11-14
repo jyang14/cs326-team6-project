@@ -5,17 +5,17 @@
   "repository": "https://github.com/jyang14/cs326-team6-project",
   "license": "MIT",
   "scripts": {
-    "dev": "concurrently \"npm start\" \"cd client && npm start\"",
+    "dev": "concurrently \"yarn start\" \"cd client && yarn start\"",
     "pretty": "prettier --write **/*.{js,css,html}",
     "standard:fix": "standard --fix",
     "lint": "standard",
-    "lint:fix": "npm run-script pretty && npm run-script standard:fix",
-    "build": "cd client && npm run-script build && cd .. && copyfiles -u 2 client/build/**/* srv/dist",
-    "start": "cd srv && npm start"
+    "lint:fix": "yarn pretty && yarn standard:fix",
+    "build": "cd client && yarn build && cd .. && copyfiles -u 2 client/build/**/* srv/dist",
+    "start": "cd srv && yarn start"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run-script lint:fix"
+      "pre-commit": "yarn lint:fix"
     }
   },
   "standard": {
