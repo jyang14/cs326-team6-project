@@ -3,12 +3,17 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "dev": "nodemon index.js",
     "start": "node index.js"
   },
   "license": "MIT",
   "dependencies": {
     "connect-history-api-fallback": "^1.6.0",
     "express": "^4.17.1",
+    "mongodb": "^3.3.4",
     "morgan": "^1.9.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.4"
   }
 }
