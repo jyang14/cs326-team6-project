@@ -1,6 +1,12 @@
 const express = require('express')
+const mongoose = require('mongoose')
+
+const secret = require('./secret')
+
 const middleware = require('./config/middleware')
 const routes = require('./config/routes')
+
+mongoose.connect(secret.mongodbConnectionString, { useNewUrlParser: true })
 
 const app = express()
 

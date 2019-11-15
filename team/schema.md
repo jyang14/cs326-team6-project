@@ -1,6 +1,9 @@
 **Table User**
 | User Name | User ID | User password |
 |--|--|--|
-| String | Int | String |
+| String | ObjectID | String |
 
-**Table **
+**Table Food**
+| food name | date | user id | position |
+|--|--|--|--|
+| String | Date | ObjectID | String |

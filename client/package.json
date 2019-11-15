@@ -12,7 +12,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "proxy": "http://locahost:8080",
   "eslintConfig": {
@@ -31,6 +33,14 @@
     ]
   },
   "devDependencies": {
-    "@types/jest": "^24.0.22"
+    "@babel/core": "^7.7.2",
+    "@material-ui/core": "^4.6.1",
+    "@storybook/addon-actions": "^5.2.6",
+    "@storybook/addon-links": "^5.2.6",
+    "@storybook/addons": "^5.2.6",
+    "@storybook/react": "^5.2.6",
+    "@types/jest": "^24.0.22",
+    "@types/node": "^12.12.7",
+    "babel-loader": "^8.0.6"
   }
 }
