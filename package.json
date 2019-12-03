@@ -8,7 +8,7 @@
     "dev": "concurrently \"cd srv && yarn dev\" \"cd client && yarn start\"",
     "pretty": "prettier --write **/*.{js,css,html}",
     "standard:fix": "standard --fix",
-    "lint": "standard",
+    "lint": "standard && cd client && yarn lint",
     "lint:fix": "yarn pretty && yarn standard:fix",
     "build": "cd client && yarn build && cd .. && copyfiles -u 2 client/build/**/* srv/dist",
     "start": "cd srv && yarn start"

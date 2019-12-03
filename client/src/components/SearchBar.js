@@ -1,5 +1,7 @@
 import React from 'react'
 
+import PropTypes from 'prop-types'
+
 import Paper from '@material-ui/core/Paper'
 import IconButton from '@material-ui/core/IconButton'
 import InputBase from '@material-ui/core/InputBase'
@@ -7,7 +9,15 @@ import InputBase from '@material-ui/core/InputBase'
 import MenuIcon from '@material-ui/icons/Menu'
 import SearchIcon from '@material-ui/icons/Search'
 
-function FoodCard () {
+/**
+ * @typedef {object} SearchBarProps
+ * @property {() => void} onNavOpen
+ */
+
+/**
+ * @param {SearchBarProps} param0
+ */
+function SearchBar ({ onNavOpen }) {
   return (
     <div
       style={{
@@ -23,7 +33,12 @@ function FoodCard () {
           alignItems: 'center'
         }}
       >
-        <IconButton aria-label='menu'>
+        <IconButton
+          aria-label='menu'
+          onClick={() => {
+            onNavOpen()
+          }}
+        >
           <MenuIcon />
         </IconButton>
         <InputBase
@@ -41,4 +56,8 @@ function FoodCard () {
   )
 }
 
-export default FoodCard
+SearchBar.propTypes = {
+  onNavChange: PropTypes.func.isRequired
+}
+
+export default SearchBar
