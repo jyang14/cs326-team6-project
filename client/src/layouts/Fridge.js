@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react'
 
+import { Redirect } from 'react-router-dom'
 import axios from 'axios'
 
 import { FoodCard, NavigationDrawer, SearchBar } from '../components'
+import { useAuth0 } from '../utils/auth0'
 
-import './Dashboard.css'
+import './Fridge.css'
 
-function Dashboard () {
+function Fridge () {
+  const { isAuthenticated, loginWithPopup, logout } = useAuth0()
+
   const [food, setFood] = useState(
     /** @type {import('../components/FoodCard').FoodCardProps[]} */ ([])
   )
@@ -16,27 +20,40 @@ function Dashboard () {
   useEffect(() => {
     let mounted = true
     ;(async () => {
-      const response = await axios.get('/api/sample-data')
-      if (mounted) {
-        setFood(
-          response.data.map(f => ({
-            ...f,
-            date: new Date(f.date)
-          }))
-        )
+      if (isAuthenticated) {
+        const response = await axios.get('/api/sample-data')
+        if (mounted) {
+          setFood(
+            response.data.map(f => ({
+              ...f,
+              date: new Date(f.date)
+            }))
+          )
+        }
       }
     })()
     return () => {
       mounted = false
     }
-  }, [])
+  }, [isAuthenticated])
+
+  if (!isAuthenticated) {
+    return <Redirect to='/' />
+  }
 
   return (
-    <div className='Dashboard'>
+    <div className='Fridge'>
       <NavigationDrawer
         open={open}
         onClose={() => {
           setOpen(false)
+        }}
+        authenticated={isAuthenticated}
+        login={() => {
+          loginWithPopup()
+        }}
+        logout={() => {
+          logout()
         }}
       />
       <SearchBar
@@ -61,4 +78,4 @@ function Dashboard () {
   )
 }
 
-export default Dashboard
+export default Fridge

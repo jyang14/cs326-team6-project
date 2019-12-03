@@ -57,7 +57,7 @@ function SearchBar ({ onNavOpen }) {
 }
 
 SearchBar.propTypes = {
-  onNavChange: PropTypes.func.isRequired
+  onNavOpen: PropTypes.func.isRequired
 }
 
 export default SearchBar

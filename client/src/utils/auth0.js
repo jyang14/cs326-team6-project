@@ -36,6 +36,21 @@ const defaultAuth0Context = {
  *  >}
  */
 export const Auth0Context = React.createContext(defaultAuth0Context)
+/**
+ * @type {() =>
+ *    {
+ *      isAuthenticated: boolean,
+ *      user: any,
+ *      loading: boolean,
+ *      popupOpen: boolean,
+ *      loginWithPopup: Auth0Client['loginWithPopup']
+ *      getIdTokenClaims: Auth0Client['getIdTokenClaims']
+ *      getTokenSilently: Auth0Client['getTokenSilently']
+ *      getTokenWithPopup: Auth0Client['getTokenWithPopup']
+ *      logout: Auth0Client['logout']
+ *    }
+ * }
+ */
 export const useAuth0 = () => useContext(Auth0Context)
 
 /**
@@ -46,7 +61,7 @@ export const useAuth0 = () => useContext(Auth0Context)
  * }} param0
  */
 export const Auth0Provider = ({ children, redirectURI }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState()
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [user, setUser] = useState()
   /** @type {[Auth0Client, React.Dispatch<React.SetStateAction<Auth0Client>>]} */
   const [auth0Client, setAuth0] = useState(null)

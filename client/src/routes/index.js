@@ -2,22 +2,18 @@ import React from 'react'
 
 import { Switch, Redirect, Route } from 'react-router-dom'
 
-import CircularProgress from '@material-ui/core/CircularProgress'
-
-import { HomePage, LoginPage, Dashboard } from '../layouts'
+import { HomePage, LoginPage, Fridge } from '../layouts'
 import { useAuth0 } from '../utils/auth0'
 
 function Routes () {
   const { loading } = useAuth0()
 
-  if (loading) {
-    return <CircularProgress />
-  }
+  if (loading) return ''
 
   return (
     <Switch>
       <Route exact path='/login' render={() => <LoginPage />} />
-      <Route exact path='/dashboard' render={() => <Dashboard />} />
+      <Route exact path='/fridge' render={() => <Fridge />} />
       <Route exact path='/' render={() => <HomePage />} />
       <Redirect to='/' />
     </Switch>
