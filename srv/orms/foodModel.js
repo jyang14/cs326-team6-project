@@ -3,9 +3,9 @@ var Schema = mongoose.Schema
 
 var foodSchema = new Schema({
   name: String,
-  id: Schema.Types.ObjectId,
   date: Date,
-  location: String
+  location: String,
+  userId: String
 })
 
 module.exports = mongoose.model('Food', foodSchema)
