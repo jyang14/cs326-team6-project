@@ -14,7 +14,8 @@
     "express-jwt": "^5.3.1",
     "jwks-rsa": "^1.6.0",
     "mongoose": "^5.7.11",
-    "morgan": "^1.9.1"
+    "morgan": "^1.9.1",
+    "jwt-simple": "^0.5.6"
   },
   "devDependencies": {
     "nodemon": "^1.19.4"
