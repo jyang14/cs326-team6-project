@@ -34,6 +34,9 @@ export const defaultView = () =>
             onClose={() => {
               setOpen(false)
             }}
+            onAddFood={() => {
+              action('add food')
+            }}
             login={() => {
               action('login')
             }}

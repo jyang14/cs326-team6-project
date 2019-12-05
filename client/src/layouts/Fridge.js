@@ -3,7 +3,12 @@ import React, { useState, useEffect } from 'react'
 import { Redirect } from 'react-router-dom'
 import axios from 'axios'
 
-import { FoodCard, NavigationDrawer, SearchBar } from '../components'
+import {
+  FoodCard,
+  NavigationDrawer,
+  SearchBar,
+  AddFoodDialog
+} from '../components'
 import { useAuth0 } from '../utils/auth0'
 
 import './Fridge.css'
@@ -15,7 +20,8 @@ function Fridge () {
     /** @type {import('../components/FoodCard').FoodCardProps[]} */ ([])
   )
 
-  const [open, setOpen] = useState(false)
+  const [navOpen, setNavOpen] = useState(false)
+  const [dialogOpen, setDialogOpen] = useState(false)
 
   useEffect(() => {
     let mounted = true
@@ -43,12 +49,21 @@ function Fridge () {
 
   return (
     <div className='Fridge'>
+      <SearchBar
+        onNavOpen={() => {
+          setNavOpen(true)
+        }}
+      />
       <NavigationDrawer
-        open={open}
+        open={navOpen}
         onClose={() => {
-          setOpen(false)
+          setNavOpen(false)
         }}
         authenticated={isAuthenticated}
+        onAddFood={() => {
+          setNavOpen(false)
+          setDialogOpen(true)
+        }}
         login={() => {
           loginWithPopup()
         }}
@@ -56,10 +71,10 @@ function Fridge () {
           logout()
         }}
       />
-      <SearchBar
-        onNavOpen={() => {
-          setOpen(true)
-        }}
+      <AddFoodDialog
+        open={dialogOpen}
+        onClose={() => setDialogOpen(false)}
+        onSubmit={() => {}}
       />
       <div
         style={{

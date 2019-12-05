@@ -71,6 +71,7 @@ export const Auth0Provider = ({ children, redirectURI }) => {
   useEffect(() => {
     const initAuth0 = async () => {
       const auth0FromHook = await createAuth0Client({
+        audience: config.audience,
         redirect_uri: redirectURI,
         client_id: config.clientId,
         domain: config.domain
@@ -95,14 +96,14 @@ export const Auth0Provider = ({ children, redirectURI }) => {
     setPopupOpen(true)
     try {
       await auth0Client.loginWithPopup(params)
+      const user = await auth0Client.getUser()
+      setUser(user)
+      setIsAuthenticated(true)
     } catch (error) {
       console.error(error)
     } finally {
       setPopupOpen(false)
     }
-    const user = await auth0Client.getUser()
-    setUser(user)
-    setIsAuthenticated(true)
   }
 
   return (

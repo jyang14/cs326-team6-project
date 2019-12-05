@@ -1,9 +1,33 @@
+const axios = require('axios').default
+
+const { jwtCheck } = require('./auth')
+const config = require('../secret')
+
+/**
+ * @param {string} token
+ */
+async function getUserIdFromToken (token) {
+  return (
+    await axios.get(`https://${config.auth0Domain}/userinfo`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+  ).data.sub
+}
+
 /**
  * @param {import('express').Application} app
  * @param {import('express')} express
  */
 module.exports = (app, express) => {
   /* TODO: Insert routes */
+
+  app.post('/api/user_profile', jwtCheck, async (req, res) => {
+    const token = req.body.token
+    console.log(await getUserIdFromToken(token))
+    res.status(200).end()
+  })
 
   app.get('/api/sample-data', (req, res) => {
     res

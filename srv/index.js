@@ -1,6 +1,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
-const morgan = require('morgan')
+const path = require('path')
+const history = require('connect-history-api-fallback')
 
 const secret = require('./secret')
 
@@ -14,11 +15,12 @@ mongoose.connect(secret.mongodbConnectionString, {
 
 const app = express()
 
-app.use(morgan('dev'))
+middleware(app, express)
 
 routes(app, express)
 
-middleware(app, express)
+app.use(history())
+app.use(express.static(path.join(__dirname, '../dist')))
 
 const port = process.env.PORT || 8080
 

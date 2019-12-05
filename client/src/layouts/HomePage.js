@@ -12,10 +12,35 @@ import { NavigationDrawer } from '../components'
 import { useAuth0 } from '../utils/auth0'
 
 import './HomePage.css'
+import AddFoodDialog from '../components/AddFoodDialog'
 
 function HomePage () {
-  const { isAuthenticated, loginWithPopup, logout } = useAuth0()
-  const [open, setOpen] = useState(false)
+  const {
+    isAuthenticated,
+    loginWithPopup,
+    logout
+    // getTokenSilently
+  } = useAuth0()
+  const [navOpen, setNavOpen] = useState(false)
+  const [dialogOpen, setDialogOpen] = useState(false)
+
+  // const callApi = async () => {
+  //   try {
+  //     const token = await getTokenSilently()
+
+  //     axios.post(
+  //       '/api/user_profile',
+  //       { token },
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`
+  //         }
+  //       }
+  //     )
+  //   } catch (error) {
+  //     console.error(error)
+  //   }
+  // }
 
   return (
     <div className='HomePage'>
@@ -27,7 +52,7 @@ function HomePage () {
             aria-label='menu'
             style={{ marginRight: '16px' }}
             onClick={() => {
-              setOpen(true)
+              setNavOpen(true)
             }}
           >
             <MenuIcon />
@@ -48,21 +73,30 @@ function HomePage () {
             {isAuthenticated ? 'Logout' : 'Login'}
           </Button>
         </Toolbar>
-        <NavigationDrawer
-          open={open}
-          onClose={() => {
-            setOpen(false)
-          }}
-          authenticated={isAuthenticated}
-          login={() => {
-            loginWithPopup()
-          }}
-          logout={() => {
-            logout()
-          }}
-        />
       </AppBar>
       <Typography>TODO: Insert instructions</Typography>
+      <AddFoodDialog
+        open={dialogOpen}
+        onClose={() => setDialogOpen(false)}
+        onSubmit={() => {}}
+      />
+      <NavigationDrawer
+        open={navOpen}
+        onClose={() => {
+          setNavOpen(false)
+        }}
+        authenticated={isAuthenticated}
+        onAddFood={() => {
+          setNavOpen(false)
+          setDialogOpen(true)
+        }}
+        login={() => {
+          loginWithPopup()
+        }}
+        logout={() => {
+          logout()
+        }}
+      />
     </div>
   )
 }

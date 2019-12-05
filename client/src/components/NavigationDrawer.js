@@ -15,13 +15,21 @@ import ListItemText from '@material-ui/core/ListItemText'
  * @property {() => void} login
  * @property {() => void} logout
  * @property {() => void} onClose
+ * @property {() => void} onAddFood
  * @property {boolean} open
  */
 
 /**
  * @param {NavigationDrawerProps} param0
  */
-function NavigationDrawer ({ authenticated, login, logout, open, onClose }) {
+function NavigationDrawer ({
+  authenticated,
+  login,
+  logout,
+  open,
+  onAddFood,
+  onClose
+}) {
   return (
     <Drawer
       open={open}
@@ -40,17 +48,17 @@ function NavigationDrawer ({ authenticated, login, logout, open, onClose }) {
             <ListItemText primary='Home' />
           </ListItem>
           {authenticated ? (
-            [
-              <ListItem button key={0} component={Link} to='/fridge'>
+            <>
+              <ListItem button component={Link} to='/fridge'>
                 <ListItemText primary='View Fridge' />
-              </ListItem>,
-              <ListItem button key={1} component={Link} to='/add_food'>
+              </ListItem>
+              <ListItem button onClick={() => onAddFood()}>
                 <ListItemText primary='Add Food' />
-              </ListItem>,
-              <ListItem button key={2} onClick={() => logout()}>
+              </ListItem>
+              <ListItem button onClick={() => logout()}>
                 <ListItemText primary='Logout' />
               </ListItem>
-            ]
+            </>
           ) : (
             <ListItem button onClick={() => login()}>
               <ListItemText primary='Login' />
@@ -67,6 +75,7 @@ NavigationDrawer.propTypes = {
   login: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
+  onAddFood: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired
 }
 
