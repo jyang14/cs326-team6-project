@@ -1,5 +1,4 @@
 const express = require('express')
-const mongoose = require('mongoose')
 
 const { jwtCheck, getUserIdFromToken } = require('../config/auth')
 
@@ -20,8 +19,8 @@ router.get('/', jwtCheck, async (req, res) => {
   try {
     const query = Food.find({
       ...req.body,
-      userId: await getUserIdFromToken(req.token)
-    })
+      user: await getUserIdFromToken(req.token)
+    }).sort('date')
 
     // return all food we found to client
     res.status(200).json(await query.exec())
@@ -35,10 +34,10 @@ router.post('/', jwtCheck, async (req, res) => {
   try {
     // create new food item using the data from req
     const newFood = new Food({
-      name: req.body.name,
-      id: mongoose.Types.ObjectId(),
       date: new Date(req.body.date),
-      location: req.body.location
+      name: req.body.name,
+      location: req.body.location,
+      user: await getUserIdFromToken(req.token)
     })
     // save new food to database
     res.status(200).json(await newFood.save())

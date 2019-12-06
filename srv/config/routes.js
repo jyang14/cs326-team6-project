@@ -5,5 +5,5 @@ const foodRouter = require('../routers/foodRouter')
  * @param {import('express')} express
  */
 module.exports = (app, express) => {
-  app.use('/food', foodRouter)
+  app.use('/api/food', foodRouter)
 }
