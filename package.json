@@ -10,7 +10,7 @@
     "standard:fix": "standard --fix",
     "lint": "standard && cd client && yarn lint",
     "lint:fix": "yarn pretty && yarn standard:fix",
-    "prebuild": "cd client && yarn && cd ../srv && yarn",
+    "heroku-prebuild": "cd client && yarn && cd ../srv && yarn",
     "build": "cd client && yarn build && cd .. && copyfiles -u 2 client/build/**/* srv/dist",
     "start": "cd srv && yarn start"
   },
