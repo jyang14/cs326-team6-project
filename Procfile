@@ -1,1 +1,1 @@
-web: node srv/index.js
+web: yarn start
