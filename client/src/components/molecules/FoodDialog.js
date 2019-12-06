@@ -19,26 +19,42 @@ import {
 import useTheme from '@material-ui/core/styles/useTheme'
 
 /**
- * @typedef {object} AddFoodDialogProps
+ * @typedef {object} FoodDialogProps
+ * @property {string=} actionName
+ * @property {Date=} initialDate
+ * @property {string=} initialName
+ * @property {string=} initialLocation
  * @property {() => void} onClose
  * @property {boolean} open
  * @property {(name: string, date: Date, location: string) => void} onSubmit
  */
 
 /**
- * @param {AddFoodDialogProps} param0
+ * @param {FoodDialogProps} param0
  */
-function AddFoodDialog ({ open, onClose, onSubmit }) {
+function FoodDialog ({
+  actionName = 'Add',
+  initialDate,
+  initialLocation,
+  initialName,
+  onClose,
+  onSubmit,
+  open
+}) {
   const theme = useTheme()
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
 
-  const [name, setName] = React.useState('')
-  const [location, setLocation] = React.useState('')
-  const [date, setDate] = React.useState(() => new Date(Date.now()))
+  const [name, setName] = React.useState(() => initialName || '')
+  const [location, setLocation] = React.useState(initialLocation || '')
+  const [date, setDate] = React.useState(
+    () => initialDate || new Date(Date.now())
+  )
 
   useEffect(() => {
-    setDate(new Date(Date.now()))
-  }, [open])
+    setDate(initialDate || new Date(Date.now()))
+    setName(initialName || '')
+    setLocation(initialLocation || '')
+  }, [initialDate, initialLocation, initialName, open])
 
   return (
     <Dialog
@@ -93,23 +109,26 @@ function AddFoodDialog ({ open, onClose, onSubmit }) {
         <Button
           onClick={() => {
             if (name) {
-              onClose()
               onSubmit(name, date, location)
             }
           }}
           color='primary'
         >
-          Add
+          {actionName}
         </Button>
       </DialogActions>
     </Dialog>
   )
 }
 
-AddFoodDialog.propTypes = {
+FoodDialog.propTypes = {
+  actionName: PropTypes.string,
+  initialDate: PropTypes.object,
+  initialName: PropTypes.string,
+  initialLocation: PropTypes.string,
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired
 }
 
-export default AddFoodDialog
+export default FoodDialog

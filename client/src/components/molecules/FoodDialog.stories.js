@@ -4,7 +4,7 @@ import { action, withActions } from '@storybook/addon-actions'
 
 import Button from '@material-ui/core/Button'
 
-import AddFoodDialog from './AddFoodDialog'
+import FoodDialog from './FoodDialog'
 
 export default { title: 'AddFoodDialog', decorators: [withActions] }
 
@@ -21,7 +21,7 @@ export const defaultView = () => {
         >
           Show Drawer
         </Button>
-        <AddFoodDialog
+        <FoodDialog
           open={open}
           onClose={() => setOpen(false)}
           onSubmit={action('submit')}

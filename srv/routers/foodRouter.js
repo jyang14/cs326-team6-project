@@ -47,10 +47,29 @@ router.post('/', jwtCheck, async (req, res) => {
   }
 })
 
-router.delete('/', jwtCheck, async (req, res) => {
+router.put('/:id', jwtCheck, async (req, res) => {
   try {
-    const food = await Food.findById(req.body.id).exec()
+    const food = await Food.findById(req.params.id).exec()
     if ((await getUserIdFromToken(req.token)) === food.user) {
+      food.name = req.body.name
+      food.date = req.body.date
+      food.location = req.body.location
+      food.save()
+      res.status(204).send()
+    } else {
+      res.status(401).send()
+    }
+  } catch (e) {
+    console.log(e)
+    res.status(500).send()
+  }
+})
+
+router.delete('/:id', jwtCheck, async (req, res) => {
+  try {
+    const food = await Food.findById(req.params.id).exec()
+    if ((await getUserIdFromToken(req.token)) === food.user) {
+      await food.remove()
       res.status(204).send()
     } else {
       res.status(401).send()

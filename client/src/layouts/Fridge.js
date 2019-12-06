@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 
 import { Redirect } from 'react-router-dom'
 
-import { FoodCard, SearchBar } from '../components/molecules'
+import { FoodCard, SearchBar, FoodDialog } from '../components/molecules'
 import { NavContainer } from '../components/organisms'
 
 import { useAuth0 } from '../utils/auth0'
@@ -10,25 +10,45 @@ import { useFoodApi } from '../utils/api'
 
 import './Fridge.css'
 
+/**
+ * @typedef {object} Food
+ * @property {string} name
+ * @property {Date} date Expiration Date
+ * @property {string} location
+ * @property {string} _id
+ */
+
 function Fridge () {
   const { isAuthenticated, loginWithPopup, logout } = useAuth0()
 
-  const { post: addFood, get: getFoods } = useFoodApi()
+  const {
+    post: addFood,
+    get: getFoods,
+    delete: deleteFood,
+    put: updateFood
+  } = useFoodApi()
 
-  const [foods, setFoods] = useState(
-    /** @type {import('../components/molecules/FoodCard').FoodCardProps[]} */ ([])
-  )
+  const [foods, setFoods] = useState(/** @type {Food[]} */ ([]))
   const [update, setUpdate] = useState(0)
 
+  const [search, setSearch] = useState('')
   const [navOpen, setNavOpen] = useState(false)
   const [status, setStatus] = useState({ open: false, message: '' })
+
+  const [editDialog, setEditDialog] = useState({
+    open: false,
+    name: '',
+    date: new Date(),
+    location: '',
+    id: ''
+  })
 
   useEffect(() => {
     let mounted = true
     ;(async () => {
       try {
         if (isAuthenticated) {
-          /** @type {import('../components/molecules/FoodCard').FoodCardProps[]} */
+          /** @type {Food[]} */
           const newFoods = await getFoods()
           if (mounted) {
             setFoods(
@@ -47,6 +67,46 @@ function Fridge () {
       mounted = false
     }
   }, [update, isAuthenticated, getFoods])
+
+  const foodCards = useMemo(
+    () =>
+      foods
+        .filter(
+          f =>
+            f.name.toLowerCase().includes(search.toLowerCase()) ||
+            f.location.toLowerCase().includes(search.toLowerCase())
+        )
+        .map(f => (
+          <FoodCard
+            key={f._id}
+            name={f.name}
+            location={f.location}
+            date={f.date}
+            onEdit={() => {
+              setEditDialog({
+                date: f.date,
+                location: f.location,
+                name: f.name,
+                open: true,
+                id: f._id
+              })
+            }}
+            onDelete={async () => {
+              try {
+                await deleteFood(f._id)
+                setStatus({ open: true, message: 'Food removed from fridge' })
+                setUpdate(n => n + 1)
+              } catch (e) {
+                setStatus({
+                  open: true,
+                  message: 'Failed to remove food from fridge'
+                })
+              }
+            }}
+          />
+        )),
+    [deleteFood, foods, search]
+  )
 
   if (!isAuthenticated) {
     return <Redirect to='/' />
@@ -69,6 +129,8 @@ function Fridge () {
             setUpdate(n => n + 1)
           } catch (e) {
             setStatus({ open: true, message: 'Failed to add food to fridge' })
+          } finally {
+            setStatus({ open: false, message: '' })
           }
         }}
         onNavClose={() => {
@@ -82,9 +144,11 @@ function Fridge () {
         statusOpen={status.open}
       >
         <SearchBar
+          onSearchChange={newSearch => setSearch(newSearch)}
           onNavOpen={() => {
             setNavOpen(true)
           }}
+          search={search}
         />
         <div
           style={{
@@ -95,10 +159,27 @@ function Fridge () {
             overflowY: 'auto'
           }}
         >
-          {foods.map((f, idx) => (
-            <FoodCard key={idx} {...f} />
-          ))}
+          {foodCards}
         </div>
+        <FoodDialog
+          actionName='Update'
+          initialDate={editDialog.date}
+          initialLocation={editDialog.location}
+          initialName={editDialog.name}
+          open={editDialog.open}
+          onClose={() => setEditDialog(s => ({ ...s, open: false }))}
+          onSubmit={async (name, date, location) => {
+            try {
+              await updateFood({ name, date, location, id: editDialog.id })
+              setStatus({ open: true, message: 'Food updated' })
+              setUpdate(n => n + 1)
+            } catch (e) {
+              setStatus({ open: true, message: 'Failed to update food' })
+            } finally {
+              setEditDialog(s => ({ ...s, open: false }))
+            }
+          }}
+        />
       </NavContainer>
     </div>
   )

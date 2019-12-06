@@ -25,6 +25,19 @@ export function useFoodApi () {
           }
         )
       },
+      async put ({ date, name, location, id }) {
+        const token = await getTokenSilently()
+
+        await axios.put(
+          `/api/food/${id}`,
+          { date, name, location },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          }
+        )
+      },
       async get () {
         try {
           const token = await getTokenSilently()
@@ -40,6 +53,18 @@ export function useFoodApi () {
           console.error(error)
           return []
         }
+      },
+      /**
+       * @param {string} id
+       */
+      async delete (id) {
+        const token = await getTokenSilently()
+
+        await axios.delete(`/api/food/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
       }
     }),
     [getTokenSilently]

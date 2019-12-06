@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { AddFoodDialog, NavigationDrawer } from '../molecules'
+import { FoodDialog, NavigationDrawer } from '../molecules'
 
 import PropTypes from 'prop-types'
 import StatusAlert from '../molecules/StatusAlert'
@@ -38,7 +38,7 @@ function NavContainer ({
   return (
     <>
       {children}
-      <AddFoodDialog
+      <FoodDialog
         open={dialogOpen}
         onClose={() => setDialogOpen(false)}
         onSubmit={async (name, date, location) => {

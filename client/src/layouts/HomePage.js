@@ -37,6 +37,8 @@ function HomePage () {
             setStatus({ open: true, message: 'Food added to fridge' })
           } catch (e) {
             setStatus({ open: true, message: 'Failed to add food to fridge' })
+          } finally {
+            setStatus({ open: false, message: '' })
           }
         }}
         onNavClose={() => {

@@ -7,17 +7,18 @@ import IconButton from '@material-ui/core/IconButton'
 import InputBase from '@material-ui/core/InputBase'
 
 import MenuIcon from '@material-ui/icons/Menu'
-import SearchIcon from '@material-ui/icons/Search'
 
 /**
  * @typedef {object} SearchBarProps
  * @property {() => void} onNavOpen
+ * @property {string} search
+ * @property {(x: string) => void} onSearchChange
  */
 
 /**
  * @param {SearchBarProps} param0
  */
-function SearchBar ({ onNavOpen }) {
+function SearchBar ({ onNavOpen, search, onSearchChange }) {
   return (
     <div
       style={{
@@ -47,17 +48,18 @@ function SearchBar ({ onNavOpen }) {
           style={{
             flex: 1
           }}
+          value={search}
+          onChange={e => onSearchChange(e.currentTarget.value)}
         />
-        <IconButton aria-label='search'>
-          <SearchIcon />
-        </IconButton>
       </Paper>
     </div>
   )
 }
 
 SearchBar.propTypes = {
-  onNavOpen: PropTypes.func.isRequired
+  onNavOpen: PropTypes.func.isRequired,
+  onSearchChange: PropTypes.func.isRequired,
+  search: PropTypes.string.isRequired
 }
 
 export default SearchBar

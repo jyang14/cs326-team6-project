@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 /**
  * @typedef {object} Food
- * @property {Date} Date
+ * @property {Date} date
  * @property {string} location
  * @property {string} name
  * @property {string} user
