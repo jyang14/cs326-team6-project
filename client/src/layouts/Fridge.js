@@ -129,8 +129,6 @@ function Fridge () {
             setUpdate(n => n + 1)
           } catch (e) {
             setStatus({ open: true, message: 'Failed to add food to fridge' })
-          } finally {
-            setStatus({ open: false, message: '' })
           }
         }}
         onNavClose={() => {
@@ -162,6 +160,7 @@ function Fridge () {
           {foodCards}
         </div>
         <FoodDialog
+          actionTitle='Edit Food'
           actionName='Update'
           initialDate={editDialog.date}
           initialLocation={editDialog.location}

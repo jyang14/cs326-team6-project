@@ -43,6 +43,7 @@ function NavContainer ({
         onClose={() => setDialogOpen(false)}
         onSubmit={async (name, date, location) => {
           onAddFood({ name, date, location })
+          setDialogOpen(false)
         }}
       />
       <NavigationDrawer

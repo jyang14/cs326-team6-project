@@ -21,6 +21,7 @@ import useTheme from '@material-ui/core/styles/useTheme'
 /**
  * @typedef {object} FoodDialogProps
  * @property {string=} actionName
+ * @property {string=} actionTitle
  * @property {Date=} initialDate
  * @property {string=} initialName
  * @property {string=} initialLocation
@@ -33,6 +34,7 @@ import useTheme from '@material-ui/core/styles/useTheme'
  * @param {FoodDialogProps} param0
  */
 function FoodDialog ({
+  actionTitle = 'Add Food',
   actionName = 'Add',
   initialDate,
   initialLocation,
@@ -63,7 +65,7 @@ function FoodDialog ({
       onClose={onClose}
       aria-labelledby='food-dialog-title'
     >
-      <DialogTitle id='food-dialog-title'>Add Food</DialogTitle>
+      <DialogTitle id='food-dialog-title'>{actionTitle}</DialogTitle>
       <DialogContent>
         <TextField
           autoFocus
@@ -123,6 +125,7 @@ function FoodDialog ({
 
 FoodDialog.propTypes = {
   actionName: PropTypes.string,
+  actionTitle: PropTypes.string,
   initialDate: PropTypes.object,
   initialName: PropTypes.string,
   initialLocation: PropTypes.string,
