@@ -1,5 +1,6 @@
+const bearerToken = require('express-bearer-token')
 const morgan = require('morgan')
-var bodyParser = require('body-parser')
+
 /**
  * @param {import('express').Application} app
  * @param {import('express')} express
@@ -7,7 +8,8 @@ var bodyParser = require('body-parser')
 module.exports = (app, express) => {
   app.use(morgan('dev'))
 
-  // use bodyParser
-  app.use(bodyParser.urlencoded({ extended: false }))
-  app.use(bodyParser.json())
+  app.use(express.urlencoded({ extended: false }))
+  app.use(express.json())
+
+  app.use(bearerToken())
 }
