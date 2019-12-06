@@ -22,7 +22,7 @@ middleware(app, express)
 routes(app, express)
 
 app.use(history())
-app.use('/', express.static(path.join(__dirname, './dist')))
+app.use('/', express.static(path.join(__dirname, '../client/build')))
 
 const port = process.env.PORT || 8080
 
