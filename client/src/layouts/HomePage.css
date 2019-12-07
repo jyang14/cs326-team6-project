@@ -2,3 +2,72 @@
   box-sizing: border-box;
   min-height: 100%;
 }
+
+.fas,.far {
+  font-size:2.5em;
+  position:absolute;
+  animation:float 2s infinite linear;
+}
+@keyframes float {
+  0%   {margin-top:0}
+  50%  {margin-top:5px}
+  100% {margin-top:0}
+}
+
+.fa-fish {top:40%; left:25%;}
+.fa-lemon {top:30%; left:30%}
+.fa-hotdog {top:25%; left:40%}
+.fa-cheese {top:40%; left:75%;}
+.fa-hamburger {top:25%; left:55%;}
+.fa-pizza-slice {top:30%; left:65%;}
+.fa-apple-alt {top:50%; left:23%}
+.fa-candy-cane {top:50%; left:78%}
+.fa-carrot {top:61%; left:27%}
+.fa-ice-cream {top:61%; left:74%}
+
+.photoBlock {
+  height:18.5em; width:20em;
+  margin:0 auto;
+  position:absolute;
+  top:50%; left:50%;
+  transform: translate(-40%, -50%);
+}
+
+.text {
+  font-size:2.5em;
+  text-align:center;
+}
+
+.button {
+  height:4em; width:7.5em;
+  margin:0 auto;
+  transform: translateY(32em);
+  cursor:pointer;
+  border-radius:25px;
+  box-shadow:0 0 0 5px rgba(93, 177, 255);
+  background-color:#5db1ff;
+}
+
+.button:before {
+  color:#5db1ff;
+  position:absolute;
+  top:50%; left:50%; content:"Start";
+  transform: translate(-50%, -50%); 
+  font-size:2em; font-weight:bold;
+  font-family:'MicroSoft YaHei',cursive;
+  display:block;
+  z-index:1;
+}
+
+.button:after {
+  position:absolute;
+  content:"";
+  width:100%; height:100%;
+  border-radius:25px;
+  background-color:white;
+  transition: transform .7s, opacity .7s;
+}
+
+.button:active {position:relative; top:2px;}
+.button:hover:before {color:#fff;}
+.button:hover:after {transform:scale(1.2); opacity:0;}
