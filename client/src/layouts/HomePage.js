@@ -37,8 +37,6 @@ function HomePage () {
             setStatus({ open: true, message: 'Food added to fridge' })
           } catch (e) {
             setStatus({ open: true, message: 'Failed to add food to fridge' })
-          } finally {
-            setStatus({ open: false, message: '' })
           }
         }}
         onNavClose={() => {
@@ -81,22 +79,28 @@ function HomePage () {
             </Button>
           </Toolbar>
         </AppBar>
-        <div className="photoBlock">
-          <img height="100%" draggable="false" src="/fridge.png"></img>
+        <div className='photoBlock'>
+          <img height='100%' draggable='false' src='/fridge.png' alt='fridge' />
         </div>
-          <div className="fas fa-cheese"></div>
-          <div className="fas fa-apple-alt"></div>
-          <div className="fas fa-carrot"></div>
-          <div className="fas fa-hamburger"></div>
-          <div className="fas fa-pizza-slice"></div>
-          <div className="fas fa-fish"></div>
-          <div className="fas fa-hotdog"></div>
-          <div className="far fa-lemon"></div>
-          <div className="fas fa-candy-cane"></div>
-          <div className="fas fa-ice-cream"></div>
-        <div className="text">Manage your refrigerator easily</div>
-        <div className="button" onClick={() => alert('login or add/edit')}></div>
-        <Typography></Typography>
+        <div className='fas fa-cheese' />
+        <div className='fas fa-apple-alt' />
+        <div className='fas fa-carrot' />
+        <div className='fas fa-hamburger' />
+        <div className='fas fa-pizza-slice' />
+        <div className='fas fa-fish' />
+        <div className='fas fa-hotdog' />
+        <div className='far fa-lemon' />
+        <div className='fas fa-candy-cane' />
+        <div className='fas fa-ice-cream' />
+        <div className='text'>Manage your refrigerator easily</div>
+        <div
+          className='button'
+          onClick={() => {
+            /* TODO: */
+          }}
+        />
+        <Typography />
+        <Typography>TODO: Insert instructions</Typography>
       </NavContainer>
     </div>
   )

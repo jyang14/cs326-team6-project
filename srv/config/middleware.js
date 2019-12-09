@@ -1,5 +1,4 @@
-const path = require('path')
-const history = require('connect-history-api-fallback')
+const bearerToken = require('express-bearer-token')
 const morgan = require('morgan')
 
 /**
@@ -7,7 +6,10 @@ const morgan = require('morgan')
  * @param {import('express')} express
  */
 module.exports = (app, express) => {
-  app.use(history())
-  app.use(express.static(path.join(__dirname, '../dist')))
   app.use(morgan('dev'))
+
+  app.use(express.urlencoded({ extended: false }))
+  app.use(express.json())
+
+  app.use(bearerToken())
 }

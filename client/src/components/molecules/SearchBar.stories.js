@@ -4,4 +4,4 @@ import SearchBar from './SearchBar'
 
 export default { title: 'SearchBar' }
 
-export const defaultView = () => <SearchBar />
+export const defaultView = () => <SearchBar onNavOpen={() => {}} />

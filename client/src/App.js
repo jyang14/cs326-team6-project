@@ -2,16 +2,20 @@ import React from 'react'
 
 import { BrowserRouter } from 'react-router-dom'
 
-import './App.css'
+import { Auth0Provider } from './utils/auth0'
 import Routes from './routes'
+
+import './App.css'
 
 function App () {
   return (
-    <BrowserRouter>
-      <div className='App'>
-        <Routes />
-      </div>
-    </BrowserRouter>
+    <Auth0Provider redirectURI={window.location.origin}>
+      <BrowserRouter>
+        <div className='App'>
+          <Routes />
+        </div>
+      </BrowserRouter>
+    </Auth0Provider>
   )
 }
 
