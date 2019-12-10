@@ -2,3 +2,24 @@
   box-sizing: border-box;
   min-height: 100%;
 }
+
+.food-icons-container {
+  display: flex;
+  font-size: 1.75em;
+  justify-content: center;
+  margin-left: 1em;
+  margin-right: 1em;
+}
+
+.food-icon {
+  display: inline;
+  padding: 0.1em;
+}
+
+.cover-image {
+  height: 40vh;
+  margin: 0;
+  max-height: 60vw;
+  max-width: 60vw;
+  width: 40vh;
+}

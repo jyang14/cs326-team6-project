@@ -8,6 +8,17 @@ import Typography from '@material-ui/core/Typography'
 
 import MenuIcon from '@material-ui/icons/Menu'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {
+  faAppleAlt,
+  faCheese,
+  faFish,
+  faHamburger,
+  faHotdog,
+  faIceCream,
+  faPizzaSlice
+} from '@fortawesome/free-solid-svg-icons'
+
 import { NavContainer } from '../components/organisms'
 import { useAuth0 } from '../utils/auth0'
 import { useFoodApi } from '../utils/api'
@@ -79,7 +90,35 @@ function HomePage () {
             </Button>
           </Toolbar>
         </AppBar>
-        <Typography>TODO: Insert instructions</Typography>
+        <Typography
+          style={{ textAlign: 'center', padding: '0.5em' }}
+          variant='h4'
+        >
+          Manage your refrigerator easily
+        </Typography>
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <img
+            className='cover-image'
+            draggable='false'
+            src='/fridge.png'
+            alt='fridge'
+          />
+        </div>
+        <div className='food-icons-container'>
+          <FontAwesomeIcon className='food-icon' icon={faCheese} />
+          <FontAwesomeIcon className='food-icon' icon={faAppleAlt} />
+          <FontAwesomeIcon className='food-icon' icon={faHamburger} />
+          <FontAwesomeIcon className='food-icon' icon={faPizzaSlice} />
+          <FontAwesomeIcon className='food-icon' icon={faFish} />
+          <FontAwesomeIcon className='food-icon' icon={faHotdog} />
+          <FontAwesomeIcon className='food-icon' icon={faIceCream} />
+        </div>
+        <Typography
+          style={{ textAlign: 'center', padding: '1em' }}
+          variant='h5'
+        >
+          To start, login in and add items to your fridge.
+        </Typography>
       </NavContainer>
     </div>
   )

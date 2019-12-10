@@ -44,12 +44,17 @@ function NavigationDrawer ({
         }}
       >
         <List>
-          <ListItem button component={Link} to='/'>
+          <ListItem button component={Link} to='/' onClick={() => onClose()}>
             <ListItemText primary='Home' />
           </ListItem>
           {authenticated ? (
             <>
-              <ListItem button component={Link} to='/fridge'>
+              <ListItem
+                button
+                component={Link}
+                to='/fridge'
+                onClick={() => onClose()}
+              >
                 <ListItemText primary='View Fridge' />
               </ListItem>
               <ListItem button onClick={() => onAddFood()}>
