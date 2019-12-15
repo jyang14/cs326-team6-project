@@ -25,3 +25,13 @@
 * Data Storage
 * Server-Side
 * AJAX
+
+## Development and Deployment Instructions
+
+To get started, run the command `yarn` in the root folder, `srv` and `client` to install dependencies. 
+
+Make a copy of `template.env` in `srv` and `client/src` as `.env` and populate fields according. Alternatively, the environmental variables in specified in the `.env` file can be set instead.
+
+Run `yarn dev` to start a development server and run `yarn build` to make a production build.
+
+After a production build is created, run `yarn start` to run the production server.
